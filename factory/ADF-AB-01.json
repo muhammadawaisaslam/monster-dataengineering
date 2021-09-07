@@ -1,0 +1,9 @@
+{
+	"name": "ADF-AB-01",
+	"location": "westus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7d830824-384e-43ed-ba58-7fdd3c86d6df",
+		"tenantId": "f01d65ba-e57e-4f8f-8143-a43ed634f3c2"
+	}
+}
