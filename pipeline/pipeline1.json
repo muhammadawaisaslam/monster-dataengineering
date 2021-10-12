@@ -3,7 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "cp_monster_to_ab",
+				"name": "cp_depletion_fact",
+				"description": "move depletion table from Monster to AB database",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
