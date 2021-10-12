@@ -1,0 +1,16 @@
+{
+	"name": "ab_monsterdb",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ab_monstersqlservera_MonsterData_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "ab_datEng",
+			"table": "vip_depletion_fact_load"
+		}
+	}
+}
