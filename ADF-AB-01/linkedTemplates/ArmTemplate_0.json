@@ -181,7 +181,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('get_all_tables').output",
+								"value": "@activity('get_all_tables').output.value",
 								"type": "Expression"
 							},
 							"activities": [
