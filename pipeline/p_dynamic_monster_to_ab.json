@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "get_all_table_names",
+				"name": "loop_tablenames",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -35,14 +35,37 @@
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "Select * from {@item().Table_Name}",
+										"type": "Expression"
+									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
-								"enableStaging": false
+								"sink": {
+									"type": "AzureSqlSink",
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
 							},
 							"inputs": [
 								{
 									"referenceName": "monster_vipdatabase",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ab_monsterdb",
 									"type": "DatasetReference"
 								}
 							]
