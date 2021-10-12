@@ -142,9 +142,8 @@
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"sourceTableName": {
-						"type": "string",
-						"defaultValue": "Bottlers"
+					"SourceTableName": {
+						"type": "string"
 					}
 				},
 				"annotations": [],
@@ -153,7 +152,7 @@
 				"typeProperties": {
 					"schema": "ab_datEng",
 					"table": {
-						"value": "@dataset().sourceTableName",
+						"value": "@dataset().SourceTableName",
 						"type": "Expression"
 					}
 				}
@@ -182,7 +181,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('get_all_tables').output.value",
+								"value": "@activity('get_all_tables').output",
 								"type": "Expression"
 							},
 							"activities": [
@@ -224,7 +223,7 @@
 											"referenceName": "monster_vipdatabase",
 											"type": "DatasetReference",
 											"parameters": {
-												"sourceTableName": {
+												"SourceTableName": {
 													"value": "@item().Table_Name",
 													"type": "Expression"
 												}
@@ -257,7 +256,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT QUOTENAME(table_Schema)+'.'+QUOTENAME(TABLE_NAME) AS Table_Name\n   FROM information_Schema.tables where TABLE_SCHEMA = 'ab_datEng'  and table_name != '[ab_datEng].[vip_depletion_fact_load]'",
+								"sqlReaderQuery": "   SELECT QUOTENAME(table_Schema) Schema_Name, QUOTENAME(TABLE_NAME) AS Table_Name\n   FROM information_Schema.tables where TABLE_SCHEMA = 'ab_datEng'  and table_name != '[ab_datEng].[vip_depletion_fact_load]'",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -325,7 +324,9 @@
 							{
 								"referenceName": "monster_vipdatabase",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"SourceTableName": "vip_depletion_fact_load"
+								}
 							}
 						],
 						"outputs": [
