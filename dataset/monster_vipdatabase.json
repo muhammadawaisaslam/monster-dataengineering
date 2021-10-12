@@ -5,35 +5,8 @@
 			"referenceName": "vipdataset_ls",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"tablename": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [
-			{
-				"name": "Callpoint ID",
-				"type": "nvarchar"
-			},
-			{
-				"name": "Item Code",
-				"type": "nvarchar"
-			},
-			{
-				"name": "Authorization",
-				"type": "nvarchar"
-			},
-			{
-				"name": "Order",
-				"type": "bigint",
-				"precision": 19
-			}
-		],
-		"typeProperties": {
-			"schema": "ab_datEng",
-			"table": "Authorization"
-		}
+		"schema": []
 	}
 }
