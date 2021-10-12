@@ -1,0 +1,12 @@
+{
+	"name": "monster_vipdatabase",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vipdataset_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
