@@ -40,7 +40,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('get_all_tables').output.value",
+								"value": "@activity('get_all_tables').output",
 								"type": "Expression"
 							},
 							"activities": [
@@ -59,16 +59,15 @@
 									"typeProperties": {
 										"source": {
 											"type": "AzureSqlSource",
-											"sqlReaderQuery": {
-												"value": "SELECT * FROM @{item().Table_Name}",
-												"type": "Expression"
-											},
 											"queryTimeout": "02:00:00",
 											"partitionOption": "None"
 										},
 										"sink": {
 											"type": "AzureSqlSink",
-											"tableOption": "autoCreate",
+											"tableOption": {
+												"value": "@{item().Table_Name}",
+												"type": "Expression"
+											},
 											"disableMetricsCollection": false
 										},
 										"enableStaging": false,
@@ -85,7 +84,12 @@
 										{
 											"referenceName": "monster_vipdatabase",
 											"type": "DatasetReference",
-											"parameters": {}
+											"parameters": {
+												"sourceTableName": {
+													"value": "@item().Table_Name",
+													"type": "Expression"
+												}
+											}
 										}
 									],
 									"outputs": [
@@ -235,12 +239,21 @@
 					"referenceName": "vipdataset_ls",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"sourceTableName": {
+						"type": "string",
+						"defaultValue": "Bottlers"
+					}
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
 					"schema": "ab_datEng",
-					"table": "[[ab_datEng].[vip_depletion_fact_load]"
+					"table": {
+						"value": "@dataset().sourceTableName",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
