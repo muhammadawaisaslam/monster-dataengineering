@@ -7,6 +7,10 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": "ab_datEng",
+			"table": "[ab_datEng].[vip_depletion_fact_load]"
+		}
 	}
 }
