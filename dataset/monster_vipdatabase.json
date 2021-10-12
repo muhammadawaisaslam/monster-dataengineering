@@ -5,21 +5,8 @@
 			"referenceName": "vipdataset_ls",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"sourceTableName": {
-				"type": "string",
-				"defaultValue": "Bottlers"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
-		"typeProperties": {
-			"schema": "ab_datEng",
-			"table": {
-				"value": "@dataset().sourceTableName",
-				"type": "Expression"
-			}
-		}
+		"schema": []
 	}
 }
