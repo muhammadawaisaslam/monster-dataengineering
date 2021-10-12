@@ -206,10 +206,7 @@
 										},
 										"sink": {
 											"type": "AzureSqlSink",
-											"tableOption": {
-												"value": "@{item().Table_Name}",
-												"type": "Expression"
-											},
+											"tableOption": "autoCreate",
 											"disableMetricsCollection": false
 										},
 										"enableStaging": false,
