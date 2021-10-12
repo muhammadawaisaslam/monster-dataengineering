@@ -35,10 +35,6 @@
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
-									"sqlReaderQuery": {
-										"value": "select * from @item().Table_Name",
-										"type": "Expression"
-									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -60,7 +56,13 @@
 							"inputs": [
 								{
 									"referenceName": "monster_vipdatabase",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"SourceTableName": {
+											"value": "@item().Table_Name",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
