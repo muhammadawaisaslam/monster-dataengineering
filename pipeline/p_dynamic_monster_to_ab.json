@@ -1,0 +1,52 @@
+{
+	"name": "p_dynamic_monster_to_ab",
+	"properties": {
+		"activities": [
+			{
+				"name": "get_all_table_names",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "get_all_tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('get_all_tables').output.value",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "get_all_tables",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "   SELECT QUOTENAME(table_Schema)+'.'+QUOTENAME(TABLE_NAME) AS Table_Name\n   FROM information_Schema.tables where TABLE_SCHEMA = 'ab_datEng'  and table_name != '[ab_datEng].[vip_depletion_fact_load]'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ab_monsterdb",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
