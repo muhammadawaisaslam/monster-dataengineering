@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('get_all_tables').output.value",
+						"value": "@activity('get_all_tables').output",
 						"type": "Expression"
 					},
 					"activities": [
@@ -88,7 +88,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT QUOTENAME(table_Schema)+'.'+QUOTENAME(TABLE_NAME) AS Table_Name\n   FROM information_Schema.tables where TABLE_SCHEMA = 'ab_datEng'  and table_name != '[ab_datEng].[vip_depletion_fact_load]'",
+						"sqlReaderQuery": "   SELECT QUOTENAME(table_Schema) Schema_Name, QUOTENAME(TABLE_NAME) AS Table_Name\n   FROM information_Schema.tables where TABLE_SCHEMA = 'ab_datEng'  and table_name != '[ab_datEng].[vip_depletion_fact_load]'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},

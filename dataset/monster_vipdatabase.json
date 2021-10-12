@@ -5,8 +5,20 @@
 			"referenceName": "vipdataset_ls",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"SourceTableName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": "ab_datEng",
+			"table": {
+				"value": "@dataset().SourceTableName",
+				"type": "Expression"
+			}
+		}
 	}
 }
