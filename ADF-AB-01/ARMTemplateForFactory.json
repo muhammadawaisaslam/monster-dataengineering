@@ -21,13 +21,132 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/p_dynamic_monster_to_ab')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "loop_tablenames",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "get_all_tables",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('get_all_tables').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "cd_dynamic_monster_to_ab",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "Select * from {@item().Table_Name}",
+												"type": "Expression"
+											},
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"tableOption": "autoCreate",
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "monster_vipdatabase",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ab_monsterdb",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "get_all_tables",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT QUOTENAME(table_Schema)+'.'+QUOTENAME(TABLE_NAME) AS Table_Name\n   FROM information_Schema.tables where TABLE_SCHEMA = 'ab_datEng'  and table_name != '[ab_datEng].[vip_depletion_fact_load]'",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ab_monsterdb",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ab_monsterdb')]",
+				"[concat(variables('factoryId'), '/datasets/monster_vipdatabase')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "cp_monster_to_ab",
+						"name": "cp_depletion_fact",
+						"description": "move depletion table from Monster to AB database",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -100,7 +219,7 @@
 				"schema": [],
 				"typeProperties": {
 					"schema": "ab_datEng",
-					"table": "vip_depletion_fact_load"
+					"table": "authorization"
 				}
 			},
 			"dependsOn": [
@@ -118,53 +237,7 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Servicing Distributor ID",
-						"type": "varchar"
-					},
-					{
-						"name": "Callpoint ID",
-						"type": "varchar"
-					},
-					{
-						"name": "Invoice Date",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "Item Code",
-						"type": "varchar"
-					},
-					{
-						"name": "Cases",
-						"type": "decimal",
-						"precision": 38,
-						"scale": 12
-					},
-					{
-						"name": "Did Buys",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "dateRange",
-						"type": "varchar"
-					},
-					{
-						"name": "Run_ID",
-						"type": "nvarchar"
-					},
-					{
-						"name": "DtCreated",
-						"type": "nvarchar"
-					},
-					{
-						"name": "CreatedBy",
-						"type": "nvarchar"
-					}
-				],
+				"schema": [],
 				"typeProperties": {
 					"schema": "ab_datEng",
 					"table": "[[ab_datEng].[vip_depletion_fact_load]"
