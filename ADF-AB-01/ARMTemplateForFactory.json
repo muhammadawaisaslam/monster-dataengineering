@@ -258,7 +258,7 @@
 				],
 				"typeProperties": {
 					"schema": "ab_datEng",
-					"table": "Authorization"
+					"table": "Bottlers"
 				}
 			},
 			"dependsOn": [
