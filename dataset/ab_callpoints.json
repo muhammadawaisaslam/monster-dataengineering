@@ -1,0 +1,78 @@
+{
+	"name": "ab_callpoints",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ab_monstersqlservera_MonsterData_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Callpoint ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Regional Callpoint",
+				"type": "nvarchar"
+			},
+			{
+				"name": "National Callpoint",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Callpoint Type",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Account Manager",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Account Director",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Channel",
+				"type": "nvarchar"
+			},
+			{
+				"name": "VP",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Format",
+				"type": "nvarchar"
+			},
+			{
+				"name": "AM Email",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Subchannel",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CCO",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CMM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Pricing Rep",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Data Rep",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "ab_datEng",
+			"table": "Callpoints"
+		}
+	}
+}
