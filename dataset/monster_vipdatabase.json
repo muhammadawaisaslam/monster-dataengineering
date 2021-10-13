@@ -9,21 +9,50 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "Callpoint ID",
-				"type": "nvarchar"
-			},
-			{
-				"name": "Item Code",
-				"type": "nvarchar"
-			},
-			{
-				"name": "Authorization",
-				"type": "nvarchar"
-			},
-			{
-				"name": "Order",
+				"name": "Bottler ID",
 				"type": "bigint",
 				"precision": 19
+			},
+			{
+				"name": "Bottler",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Distributor ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Distribution Center",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BUVP",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Director",
+				"type": "nvarchar"
+			},
+			{
+				"name": "RM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Division",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Territory",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Business Unit",
+				"type": "nvarchar"
+			},
+			{
+				"name": "M11",
+				"type": "nvarchar"
 			}
 		],
 		"typeProperties": {
