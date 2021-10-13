@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "cp_depletion_fact",
+				"name": "cp_depletion_fact_2021",
 				"description": "move depletion table from Monster to AB database",
 				"type": "Copy",
 				"dependsOn": [],
@@ -18,17 +18,143 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select *  \nfrom [ab_datEng].[[ab_datEng]].[vip_depletion_fact_load]]] \nwhere [Invoice Date] >= '2021-01-01' ",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Servicing Distributor ID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Servicing Distributor ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Callpoint ID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Callpoint ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Invoice Date",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "Invoice Date",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "Item Code",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Item Code",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Cases",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 38
+								},
+								"sink": {
+									"name": "Cases",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 38
+								}
+							},
+							{
+								"source": {
+									"name": "Did Buys",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "Did Buys",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "dateRange",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "dateRange",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Run_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "Run_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DtCreated",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "DtCreated",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -44,7 +170,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ab_monsterdb",
+						"referenceName": "ab_depletion_fact_table",
 						"type": "DatasetReference"
 					}
 				]
