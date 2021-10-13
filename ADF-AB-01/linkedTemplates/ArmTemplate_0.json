@@ -193,7 +193,7 @@
 										"source": {
 											"type": "AzureSqlSource",
 											"sqlReaderQuery": {
-												"value": "select * from  @item().Table_Name",
+												"value": "SELECT * FROM @{item().Table_Name}",
 												"type": "Expression"
 											},
 											"queryTimeout": "02:00:00",
@@ -247,7 +247,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "   SELECT TABLE_NAME AS Table_Name\n   FROM information_Schema.tables where TABLE_SCHEMA = 'ab_datEng'  and table_name != '[ab_datEng].[vip_depletion_fact_load]'",
+								"sqlReaderQuery": "   SELECT QUOTENAME(table_Schema)+'.'+QUOTENAME(TABLE_NAME) AS Table_Name\n   FROM information_Schema.tables where TABLE_SCHEMA = 'ab_datEng'  and table_name != '[ab_datEng].[vip_depletion_fact_load]'",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
