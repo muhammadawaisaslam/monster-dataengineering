@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "ab_datEng",
-			"table": "Callpoints"
+			"table": "Bottlers"
 		}
 	}
 }
