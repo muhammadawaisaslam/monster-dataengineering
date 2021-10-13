@@ -1,0 +1,121 @@
+{
+	"name": "ab_date",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ab_monstersqlservera_MonsterData_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Date",
+				"type": "datetime2",
+				"scale": 0
+			},
+			{
+				"name": "Year Number",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Year",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Quarter Number",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Quarter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Month Number",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Month",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Week Number",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Weekday Number",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Weekday",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Day Number",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Day",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Year Month Number",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Year Month",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Year Quarter Number",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Year Quarter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "IsPast",
+				"type": "bit"
+			},
+			{
+				"name": "Last Complete Day of Sales",
+				"type": "bit"
+			},
+			{
+				"name": "IsPast2018",
+				"type": "bit"
+			},
+			{
+				"name": "Is Weekday",
+				"type": "bit"
+			},
+			{
+				"name": "Date diff LCD",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Week Ending",
+				"type": "datetime2",
+				"scale": 0
+			},
+			{
+				"name": "Month Ending",
+				"type": "datetime2",
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "ab_datEng",
+			"table": "Date"
+		}
+	}
+}
