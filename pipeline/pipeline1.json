@@ -39,10 +39,7 @@
 				"inputs": [
 					{
 						"referenceName": "monster_vipdatabase",
-						"type": "DatasetReference",
-						"parameters": {
-							"SourceTableName": "vip_depletion_fact_load"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
