@@ -246,7 +246,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "monster_vipdatabase",
+								"referenceName": "Bottlers",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -267,8 +267,76 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/monster_vipdatabase')]",
+				"[concat(variables('factoryId'), '/datasets/Bottlers')]",
 				"[concat(variables('factoryId'), '/datasets/ab_monsterdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Bottlers')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "vipdataset_ls",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Bottler ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Bottler",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Distributor ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Distribution Center",
+						"type": "nvarchar"
+					},
+					{
+						"name": "BUVP",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Director",
+						"type": "nvarchar"
+					},
+					{
+						"name": "RM",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Division",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Territory",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Business Unit",
+						"type": "nvarchar"
+					},
+					{
+						"name": "M11",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "ab_datEng",
+					"table": "Bottlers"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/vipdataset_ls')]"
 			]
 		},
 		{
