@@ -1,0 +1,104 @@
+{
+	"name": "monster_items",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "vipdataset_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Item Name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Brand",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Package Size",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Brand Group",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Brand Category",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Package Group",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Distributor Item Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Distributor Description",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ItemStatus",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Country",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Cat5",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ProfitCenter",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Active",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Bottler Front Line Price",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "Innovation",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Innovation Order",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "ItemCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Average Retail Price",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "CaseUPC",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ItemUPC",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Champion SKU",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "ab_datEng",
+			"table": "Items"
+		}
+	}
+}
