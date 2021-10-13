@@ -21,6 +21,32 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0,
+							"cleanup": true
+						}
+					}
+				},
+				"managedVirtualNetwork": {
+					"type": "ManagedVirtualNetworkReference",
+					"referenceName": "default"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ab-selfhosted-ir')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -46,32 +72,6 @@
 			"apiVersion": "2018-06-01",
 			"properties": {},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AutoResolveIntegrationRuntime')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "Managed",
-				"typeProperties": {
-					"computeProperties": {
-						"location": "AutoResolve",
-						"dataFlowProperties": {
-							"computeType": "General",
-							"coreCount": 8,
-							"timeToLive": 0,
-							"cleanup": true
-						}
-					}
-				},
-				"managedVirtualNetwork": {
-					"type": "ManagedVirtualNetworkReference",
-					"referenceName": "default"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ab_monstersqlservera_MonsterData_ls')]",
@@ -180,48 +180,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ab_monsterdb')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ab_monstersqlservera_MonsterData_ls",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "ab_datEng",
-					"table": "authorization"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ab_monstersqlservera_MonsterData_ls')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/monster_vipdatabase')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "vipdataset_ls",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": "ab_datEng",
-					"table": "Bottlers"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/vipdataset_ls')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/ab_bottlers')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -287,89 +245,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ab_monstersqlservera_MonsterData_ls')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/monster_callpoints')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "vipdataset_ls",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Callpoint ID",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "Regional Callpoint",
-						"type": "nvarchar"
-					},
-					{
-						"name": "National Callpoint",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Callpoint Type",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Account Manager",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Account Director",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Channel",
-						"type": "nvarchar"
-					},
-					{
-						"name": "VP",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Format",
-						"type": "nvarchar"
-					},
-					{
-						"name": "AM Email",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Subchannel",
-						"type": "nvarchar"
-					},
-					{
-						"name": "CCO",
-						"type": "nvarchar"
-					},
-					{
-						"name": "CMM",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Pricing Rep",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Data Rep",
-						"type": "nvarchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "ab_datEng",
-					"table": "Callpoints"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/vipdataset_ls')]"
 			]
 		},
 		{
@@ -456,129 +331,114 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/monster_date')]",
+			"name": "[concat(parameters('factoryName'), '/ab_cleansedaccounts')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "vipdataset_ls",
+					"referenceName": "ab_monstersqlservera_MonsterData_ls",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "Date",
-						"type": "datetime2",
-						"scale": 0
-					},
-					{
-						"name": "Year Number",
+						"name": "VIPID",
 						"type": "bigint",
 						"precision": 19
 					},
 					{
-						"name": "Year",
+						"name": "Account Name",
 						"type": "nvarchar"
 					},
 					{
-						"name": "Quarter Number",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "Quarter",
+						"name": "Legal Name",
 						"type": "nvarchar"
 					},
 					{
-						"name": "Month Number",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "Month",
+						"name": "Street Address",
 						"type": "nvarchar"
 					},
 					{
-						"name": "Week Number",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "Weekday Number",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "Weekday",
+						"name": "Address Line 2",
 						"type": "nvarchar"
 					},
 					{
-						"name": "Day Number",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "Day",
+						"name": "City",
 						"type": "nvarchar"
 					},
 					{
-						"name": "Year Month Number",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "Year Month",
+						"name": "State",
 						"type": "nvarchar"
 					},
 					{
-						"name": "Year Quarter Number",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "Year Quarter",
+						"name": "Zip",
 						"type": "nvarchar"
 					},
 					{
-						"name": "IsPast",
-						"type": "bit"
+						"name": "Country",
+						"type": "nvarchar"
 					},
 					{
-						"name": "Last Complete Day of Sales",
-						"type": "bit"
+						"name": "FIPS",
+						"type": "nvarchar"
 					},
 					{
-						"name": "IsPast2018",
-						"type": "bit"
+						"name": "MSA",
+						"type": "nvarchar"
 					},
 					{
-						"name": "Is Weekday",
-						"type": "bit"
+						"name": "County",
+						"type": "nvarchar"
 					},
 					{
-						"name": "Date diff LCD",
-						"type": "bigint",
-						"precision": 19
+						"name": "MaltBev",
+						"type": "nvarchar"
 					},
 					{
-						"name": "Week Ending",
-						"type": "datetime2",
-						"scale": 0
+						"name": "WineBev",
+						"type": "nvarchar"
 					},
 					{
-						"name": "Month Ending",
-						"type": "datetime2",
-						"scale": 0
+						"name": "SpritsBev",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Class of Trade",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Sub Class of Trade",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Lat",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Lon",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Address",
+						"type": "nvarchar"
+					},
+					{
+						"name": "StoreID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "StoreStatus",
+						"type": "nvarchar"
 					}
 				],
 				"typeProperties": {
 					"schema": "ab_datEng",
-					"table": "Date"
+					"table": "Cleansed Accounts"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/vipdataset_ls')]"
+				"[concat(variables('factoryId'), '/linkedServices/ab_monstersqlservera_MonsterData_ls')]"
 			]
 		},
 		{
@@ -708,115 +568,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/monster_items')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "vipdataset_ls",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "Item Name",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Brand",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Package Size",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Brand Group",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Brand Category",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Package Group",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Distributor Item Code",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Distributor Description",
-						"type": "nvarchar"
-					},
-					{
-						"name": "ItemStatus",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Country",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Cat5",
-						"type": "nvarchar"
-					},
-					{
-						"name": "ProfitCenter",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Active",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Bottler Front Line Price",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "Innovation",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Innovation Order",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "ItemCode",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Average Retail Price",
-						"type": "float",
-						"precision": 15
-					},
-					{
-						"name": "CaseUPC",
-						"type": "nvarchar"
-					},
-					{
-						"name": "ItemUPC",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Champion SKU",
-						"type": "nvarchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "ab_datEng",
-					"table": "Items"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/vipdataset_ls')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/ab_items')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -923,6 +674,110 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ab_monstersqlservera_MonsterData_ls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ab_monsterdb')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ab_monstersqlservera_MonsterData_ls",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "ab_datEng",
+					"table": "authorization"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ab_monstersqlservera_MonsterData_ls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/monster_callpoints')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "vipdataset_ls",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Callpoint ID",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Regional Callpoint",
+						"type": "nvarchar"
+					},
+					{
+						"name": "National Callpoint",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Callpoint Type",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Account Manager",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Account Director",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Channel",
+						"type": "nvarchar"
+					},
+					{
+						"name": "VP",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Format",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AM Email",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Subchannel",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CCO",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CMM",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Pricing Rep",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Data Rep",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "ab_datEng",
+					"table": "Callpoints"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/vipdataset_ls')]"
 			]
 		},
 		{
@@ -1037,7 +892,263 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ab_cleansedaccounts')]",
+			"name": "[concat(parameters('factoryName'), '/monster_date')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "vipdataset_ls",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Date",
+						"type": "datetime2",
+						"scale": 0
+					},
+					{
+						"name": "Year Number",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Year",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Quarter Number",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Quarter",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Month Number",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Month",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Week Number",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Weekday Number",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Weekday",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Day Number",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Day",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Year Month Number",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Year Month",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Year Quarter Number",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Year Quarter",
+						"type": "nvarchar"
+					},
+					{
+						"name": "IsPast",
+						"type": "bit"
+					},
+					{
+						"name": "Last Complete Day of Sales",
+						"type": "bit"
+					},
+					{
+						"name": "IsPast2018",
+						"type": "bit"
+					},
+					{
+						"name": "Is Weekday",
+						"type": "bit"
+					},
+					{
+						"name": "Date diff LCD",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Week Ending",
+						"type": "datetime2",
+						"scale": 0
+					},
+					{
+						"name": "Month Ending",
+						"type": "datetime2",
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "ab_datEng",
+					"table": "Date"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/vipdataset_ls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/monster_items')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "vipdataset_ls",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Item Name",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Brand",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Package Size",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Brand Group",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Brand Category",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Package Group",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Distributor Item Code",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Distributor Description",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ItemStatus",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Country",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Cat5",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ProfitCenter",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Active",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Bottler Front Line Price",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "Innovation",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Innovation Order",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "ItemCode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Average Retail Price",
+						"type": "float",
+						"precision": 15
+					},
+					{
+						"name": "CaseUPC",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ItemUPC",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Champion SKU",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "ab_datEng",
+					"table": "Items"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/vipdataset_ls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/monster_vipdatabase')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "vipdataset_ls",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "ab_datEng",
+					"table": "Bottlers"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/vipdataset_ls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ab_depletion_fact_table')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1049,98 +1160,54 @@
 				"type": "AzureSqlTable",
 				"schema": [
 					{
-						"name": "VIPID",
-						"type": "bigint",
-						"precision": 19
+						"name": "Servicing Distributor ID",
+						"type": "varchar"
 					},
 					{
-						"name": "Account Name",
+						"name": "Callpoint ID",
+						"type": "varchar"
+					},
+					{
+						"name": "Invoice Date",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "Item Code",
+						"type": "varchar"
+					},
+					{
+						"name": "Cases",
+						"type": "decimal",
+						"precision": 38,
+						"scale": 12
+					},
+					{
+						"name": "Did Buys",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "dateRange",
+						"type": "varchar"
+					},
+					{
+						"name": "Run_ID",
 						"type": "nvarchar"
 					},
 					{
-						"name": "Legal Name",
+						"name": "DtCreated",
 						"type": "nvarchar"
 					},
 					{
-						"name": "Street Address",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Address Line 2",
-						"type": "nvarchar"
-					},
-					{
-						"name": "City",
-						"type": "nvarchar"
-					},
-					{
-						"name": "State",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Zip",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Country",
-						"type": "nvarchar"
-					},
-					{
-						"name": "FIPS",
-						"type": "nvarchar"
-					},
-					{
-						"name": "MSA",
-						"type": "nvarchar"
-					},
-					{
-						"name": "County",
-						"type": "nvarchar"
-					},
-					{
-						"name": "MaltBev",
-						"type": "nvarchar"
-					},
-					{
-						"name": "WineBev",
-						"type": "nvarchar"
-					},
-					{
-						"name": "SpritsBev",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Class of Trade",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Sub Class of Trade",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Lat",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Lon",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Address",
-						"type": "nvarchar"
-					},
-					{
-						"name": "StoreID",
-						"type": "nvarchar"
-					},
-					{
-						"name": "StoreStatus",
+						"name": "CreatedBy",
 						"type": "nvarchar"
 					}
 				],
 				"typeProperties": {
 					"schema": "ab_datEng",
-					"table": "Cleansed Accounts"
+					"table": "vip_depletion_fact_load"
 				}
 			},
 			"dependsOn": [
@@ -1252,73 +1319,6 @@
 							},
 							"firstRowOnly": false
 						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/monster_vipdatabase')]",
-				"[concat(variables('factoryId'), '/datasets/ab_monsterdb')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "cp_depletion_fact",
-						"description": "move depletion table from Monster to AB database",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "monster_vipdatabase",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ab_monsterdb",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
 					}
 				],
 				"policy": {
