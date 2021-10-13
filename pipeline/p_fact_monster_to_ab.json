@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "p_fact_monster_to_ab",
 	"properties": {
 		"activities": [
 			{
