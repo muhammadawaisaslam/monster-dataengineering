@@ -87,13 +87,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "monster_vipdatabase",
+						"referenceName": "Bottlers",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ab_monsterdb",
+						"referenceName": "ab_bottlers",
 						"type": "DatasetReference"
 					}
 				]
