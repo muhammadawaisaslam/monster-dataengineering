@@ -7,10 +7,6 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
-		"typeProperties": {
-			"schema": "ab_datEng",
-			"table": "authorization"
-		}
+		"schema": []
 	}
 }
