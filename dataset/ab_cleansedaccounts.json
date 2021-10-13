@@ -1,0 +1,106 @@
+{
+	"name": "ab_cleansedaccounts",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ab_monstersqlservera_MonsterData_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "VIPID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Account Name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Legal Name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Street Address",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Address Line 2",
+				"type": "nvarchar"
+			},
+			{
+				"name": "City",
+				"type": "nvarchar"
+			},
+			{
+				"name": "State",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Zip",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Country",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FIPS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MSA",
+				"type": "nvarchar"
+			},
+			{
+				"name": "County",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MaltBev",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WineBev",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SpritsBev",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Class of Trade",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Sub Class of Trade",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Lat",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Lon",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Address",
+				"type": "nvarchar"
+			},
+			{
+				"name": "StoreID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "StoreStatus",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "ab_datEng",
+			"table": "Cleansed Accounts"
+		}
+	}
+}
