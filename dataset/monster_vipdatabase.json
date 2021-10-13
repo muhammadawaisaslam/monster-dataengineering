@@ -7,7 +7,25 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
+		"schema": [
+			{
+				"name": "Callpoint ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Item Code",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Authorization",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Order",
+				"type": "bigint",
+				"precision": 19
+			}
+		],
 		"typeProperties": {
 			"schema": "ab_datEng",
 			"table": "Authorization"
