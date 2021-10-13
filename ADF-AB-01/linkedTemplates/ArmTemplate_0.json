@@ -141,20 +141,12 @@
 					"referenceName": "vipdataset_ls",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"SourceTableName": {
-						"type": "string"
-					}
-				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
 					"schema": "ab_datEng",
-					"table": {
-						"value": "@dataset().SourceTableName",
-						"type": "Expression"
-					}
+					"table": "Authorization"
 				}
 			},
 			"dependsOn": [
@@ -200,6 +192,10 @@
 									"typeProperties": {
 										"source": {
 											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "select * from  @item().Table_Name",
+												"type": "Expression"
+											},
 											"queryTimeout": "02:00:00",
 											"partitionOption": "None"
 										},
@@ -222,12 +218,7 @@
 										{
 											"referenceName": "monster_vipdatabase",
 											"type": "DatasetReference",
-											"parameters": {
-												"SourceTableName": {
-													"value": "@item().Table_Name",
-													"type": "Expression"
-												}
-											}
+											"parameters": {}
 										}
 									],
 									"outputs": [
@@ -261,7 +252,7 @@
 								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "ab_monsterdb",
+								"referenceName": "monster_vipdatabase",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -276,8 +267,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ab_monsterdb')]",
-				"[concat(variables('factoryId'), '/datasets/monster_vipdatabase')]"
+				"[concat(variables('factoryId'), '/datasets/monster_vipdatabase')]",
+				"[concat(variables('factoryId'), '/datasets/ab_monsterdb')]"
 			]
 		},
 		{
@@ -324,9 +315,7 @@
 							{
 								"referenceName": "monster_vipdatabase",
 								"type": "DatasetReference",
-								"parameters": {
-									"SourceTableName": "vip_depletion_fact_load"
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
