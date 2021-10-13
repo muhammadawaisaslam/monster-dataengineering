@@ -1,0 +1,62 @@
+{
+	"name": "ab_depletion_fact_table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ab_monstersqlservera_MonsterData_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Servicing Distributor ID",
+				"type": "varchar"
+			},
+			{
+				"name": "Callpoint ID",
+				"type": "varchar"
+			},
+			{
+				"name": "Invoice Date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Item Code",
+				"type": "varchar"
+			},
+			{
+				"name": "Cases",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 12
+			},
+			{
+				"name": "Did Buys",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "dateRange",
+				"type": "varchar"
+			},
+			{
+				"name": "Run_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DtCreated",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CreatedBy",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "ab_datEng",
+			"table": "vip_depletion_fact_load"
+		}
+	}
+}
